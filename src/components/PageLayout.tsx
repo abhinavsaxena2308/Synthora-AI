@@ -1,0 +1,23 @@
+import { ReactNode } from "react";
+import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
+
+interface PageLayoutProps {
+  children: ReactNode;
+  withGrid?: boolean;
+}
+
+const PageLayout = ({ children, withGrid = true }: PageLayoutProps) => {
+  return (
+    <div className="min-h-screen flex flex-col">
+      <Navbar />
+      <main className="flex-1 pt-20 relative">
+        {withGrid && <div className="absolute inset-0 grid-pattern opacity-15 pointer-events-none" />}
+        <div className="relative z-10">{children}</div>
+      </main>
+      <Footer />
+    </div>
+  );
+};
+
+export default PageLayout;
