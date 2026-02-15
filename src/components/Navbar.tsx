@@ -21,7 +21,7 @@ const Navbar = () => {
           <div className="h-8 w-8 rounded-lg bg-primary/20 flex items-center justify-center glow-primary">
             <Sparkles className="h-5 w-5 text-primary" />
           </div>
-          <span className="text-lg font-bold text-gradient-primary">NexusAI</span>
+          <span className="text-lg font-bold text-gradient-primary">SynthoraAI</span>
         </Link>
 
         <div className="hidden md:flex items-center gap-6">

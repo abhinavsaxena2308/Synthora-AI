@@ -21,7 +21,7 @@ const DashboardLayout = ({ children, title }: DashboardLayoutProps) => {
       <aside className="hidden md:flex w-64 flex-col border-r border-border/30 bg-card/40 p-6">
         <Link to="/" className="flex items-center gap-2 mb-10">
           <Sparkles className="h-5 w-5 text-primary" />
-          <span className="font-bold text-gradient-primary">NexusAI</span>
+          <span className="font-bold text-gradient-primary">SynthoraAI</span>
         </Link>
         <nav className="space-y-1 flex-1">
           {sidebarLinks.map((link) => (

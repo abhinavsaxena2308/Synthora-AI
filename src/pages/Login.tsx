@@ -28,7 +28,7 @@ const Login = () => {
         <div className="text-center mb-8">
           <Link to="/" className="inline-flex items-center gap-2 mb-6">
             <Sparkles className="h-6 w-6 text-primary" />
-            <span className="text-xl font-bold text-gradient-primary">NexusAI</span>
+            <span className="text-xl font-bold text-gradient-primary">SynthoraAI</span>
           </Link>
           <h1 className="text-2xl font-bold text-foreground">Welcome back</h1>
           <p className="text-sm text-muted-foreground mt-1">Sign in to your account</p>

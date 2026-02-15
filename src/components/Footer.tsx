@@ -27,7 +27,7 @@ const Footer = () => {
           <div className="col-span-2 md:col-span-1">
             <div className="flex items-center gap-2 mb-4">
               <Sparkles className="h-5 w-5 text-primary" />
-              <span className="font-bold text-gradient-primary">NexusAI</span>
+              <span className="font-bold text-gradient-primary">SynthoraAI</span>
             </div>
             <p className="text-sm text-muted-foreground leading-relaxed">
               AI-powered creative tools for everyone. Generate, create, and transform content with cutting-edge AI.
@@ -49,7 +49,7 @@ const Footer = () => {
           ))}
         </div>
         <div className="border-t border-border/30 pt-8 text-center">
-          <p className="text-sm text-muted-foreground">© 2026 NexusAI. All rights reserved.</p>
+          <p className="text-sm text-muted-foreground">© 2026 SynthoraAI. All rights reserved.</p>
         </div>
       </div>
     </footer>

@@ -21,12 +21,12 @@ const HeroSection = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
         >
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full glass border border-primary/20 mb-8">
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full glass border border-primary/20 mb-8 mt-20">
             <Zap className="h-3.5 w-3.5 text-primary" />
             <span className="text-xs font-medium text-primary">Powered by Advanced AI</span>
           </div>
 
-          <h1 className="text-5xl md:text-7xl font-bold leading-tight mb-6">
+          <h1 className="text-5xl md:text-7xl font-bold leading-tight mb-4">
             <span className="text-foreground">Create Anything with</span>
             <br />
             <span className="text-gradient-primary">AI-Powered Tools</span>

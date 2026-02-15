@@ -15,9 +15,9 @@ const Privacy = () => {
             <h2 className="text-xl font-semibold text-foreground">3. Data Storage & Security</h2>
             <p>Your data is stored securely with industry-standard encryption. Generated content is stored temporarily and can be deleted at any time from your dashboard.</p>
             <h2 className="text-xl font-semibold text-foreground">4. Your Rights</h2>
-            <p>You have the right to access, correct, or delete your personal data at any time. Contact us at privacy@nexusai.com for any requests.</p>
+            <p>You have the right to access, correct, or delete your personal data at any time. Contact us at privacy@Synthoraai.com for any requests.</p>
             <h2 className="text-xl font-semibold text-foreground">5. Contact</h2>
-            <p>For questions about this policy, contact us at privacy@nexusai.com.</p>
+            <p>For questions about this policy, contact us at privacy@Synthoraai.com.</p>
           </div>
         </div>
       </section>
