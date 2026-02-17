@@ -3,6 +3,8 @@ import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { AuthProvider } from "@/contexts/AuthContext";
+import { ProtectedRoute } from "@/components/ProtectedRoute";
 import Index from "./pages/Index";
 import Features from "./pages/Features";
 import HowItWorks from "./pages/HowItWorks";
@@ -26,9 +28,10 @@ const queryClient = new QueryClient();
 const App = () => (
   <QueryClientProvider client={queryClient}>
     <TooltipProvider>
-      <Toaster />
-      <Sonner />
-      <BrowserRouter>
+      <AuthProvider>
+        <Toaster />
+        <Sonner />
+        <BrowserRouter>
         <Routes>
           {/* Public */}
           <Route path="/" element={<Index />} />
@@ -46,19 +49,19 @@ const App = () => (
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
 
-          {/* Dashboard */}
-          <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/dashboard/history" element={<History />} />
-          <Route path="/settings" element={<SettingsPage />} />
-          <Route path="/settings/profile" element={<Profile />} />
+          {/* Dashboard - protected */}
+          <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
+          <Route path="/dashboard/history" element={<ProtectedRoute><History /></ProtectedRoute>} />
+          <Route path="/settings" element={<ProtectedRoute><SettingsPage /></ProtectedRoute>} />
+          <Route path="/settings/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
 
           {/* Legal */}
           <Route path="/privacy" element={<Privacy />} />
           <Route path="/terms" element={<Terms />} />
-
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
+      </AuthProvider>
     </TooltipProvider>
   </QueryClientProvider>
 );

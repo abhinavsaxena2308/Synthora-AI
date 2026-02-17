@@ -1,7 +1,14 @@
 import { Link, useLocation } from "react-router-dom";
-import { Sparkles, Menu, X } from "lucide-react";
+import { Sparkles, Menu, X, ChevronDown, LogOut, LayoutDashboard } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
+import { useAuth } from "@/contexts/AuthContext";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 const navLinks = [
   { label: "Home", href: "/" },
@@ -13,6 +20,7 @@ const navLinks = [
 const Navbar = () => {
   const location = useLocation();
   const [mobileOpen, setMobileOpen] = useState(false);
+  const { user, signOut } = useAuth();
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 glass border-b border-border/30">
@@ -41,12 +49,47 @@ const Navbar = () => {
         </div>
 
         <div className="hidden md:flex items-center gap-3">
-          <Link to="/login">
-            <Button variant="ghost" size="sm">Log In</Button>
-          </Link>
-          <Link to="/register">
-            <Button variant="hero" size="sm">Get Started</Button>
-          </Link>
+          {user ? (
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant="ghost" size="sm" className="gap-1.5">
+                  <span className="max-w-[120px] truncate text-foreground">
+                    {user.displayName || user.email || "Account"}
+                  </span>
+                  <ChevronDown className="h-4 w-4 text-muted-foreground" />
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end" className="w-48">
+                <DropdownMenuItem asChild>
+                  <Link to="/dashboard" className="flex items-center gap-2 cursor-pointer">
+                    <LayoutDashboard className="h-4 w-4" />
+                    Dashboard
+                  </Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem asChild>
+                  <Link to="/settings" className="flex items-center gap-2 cursor-pointer">
+                    Settings
+                  </Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem
+                  className="text-muted-foreground focus:text-destructive"
+                  onClick={() => signOut()}
+                >
+                  <LogOut className="h-4 w-4 mr-2" />
+                  Log out
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          ) : (
+            <>
+              <Link to="/login">
+                <Button variant="ghost" size="sm">Log In</Button>
+              </Link>
+              <Link to="/register">
+                <Button variant="hero" size="sm">Get Started</Button>
+              </Link>
+            </>
+          )}
         </div>
 
         <button
@@ -70,12 +113,28 @@ const Navbar = () => {
             </Link>
           ))}
           <div className="flex gap-3 pt-2">
-            <Link to="/login" onClick={() => setMobileOpen(false)}>
-              <Button variant="ghost" size="sm">Log In</Button>
-            </Link>
-            <Link to="/register" onClick={() => setMobileOpen(false)}>
-              <Button variant="hero" size="sm">Get Started</Button>
-            </Link>
+            {user ? (
+              <>
+                <Link to="/dashboard" onClick={() => setMobileOpen(false)}>
+                  <Button variant="ghost" size="sm">Dashboard</Button>
+                </Link>
+                <Link to="/settings" onClick={() => setMobileOpen(false)}>
+                  <Button variant="outline" size="sm">Settings</Button>
+                </Link>
+                <Button variant="ghost" size="sm" onClick={() => { signOut(); setMobileOpen(false); }}>
+                  Log out
+                </Button>
+              </>
+            ) : (
+              <>
+                <Link to="/login" onClick={() => setMobileOpen(false)}>
+                  <Button variant="ghost" size="sm">Log In</Button>
+                </Link>
+                <Link to="/register" onClick={() => setMobileOpen(false)}>
+                  <Button variant="hero" size="sm">Get Started</Button>
+                </Link>
+              </>
+            )}
           </div>
         </div>
       )}
