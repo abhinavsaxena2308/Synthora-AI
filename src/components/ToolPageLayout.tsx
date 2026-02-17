@@ -113,8 +113,8 @@ const ToolPageLayout = ({ title, description, icon: Icon, placeholder, tips }: T
               </div>
             </div>
           ) : (
-            /* Message list */
-            <div className="flex-1 overflow-auto py-6 space-y-8">
+            /* Message list - custom scrollbar, smooth scroll */
+            <div className="flex-1 overflow-y-auto overflow-x-hidden chat-scroll py-6 px-1 space-y-8">
               {messages.map((msg, i) => (
                 <div
                   key={i}
@@ -139,7 +139,7 @@ const ToolPageLayout = ({ title, description, icon: Icon, placeholder, tips }: T
                   </div>
                 </div>
               )}
-              <div ref={bottomRef} />
+              <div ref={bottomRef} className="min-h-6 flex-shrink-0" aria-hidden />
             </div>
           )}
         </div>
