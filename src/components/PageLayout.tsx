@@ -5,9 +5,10 @@ import Footer from "@/components/Footer";
 interface PageLayoutProps {
   children: ReactNode;
   withGrid?: boolean;
+  showFooter?: boolean;
 }
 
-const PageLayout = ({ children, withGrid = true }: PageLayoutProps) => {
+const PageLayout = ({ children, withGrid = true, showFooter = true }: PageLayoutProps) => {
   return (
     <div className="min-h-screen flex flex-col">
       <Navbar />
@@ -15,7 +16,7 @@ const PageLayout = ({ children, withGrid = true }: PageLayoutProps) => {
         {withGrid && <div className="absolute inset-0 grid-pattern opacity-15 pointer-events-none" />}
         <div className="relative z-10">{children}</div>
       </main>
-      <Footer />
+      {showFooter && <Footer />}
     </div>
   );
 };
