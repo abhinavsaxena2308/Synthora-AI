@@ -6,8 +6,7 @@ import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { useAuth } from "@/contexts/AuthContext";
 import { User, Mail, Camera, Loader2 } from "lucide-react";
-import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
-import { storage } from "@/lib/firebase";
+import { uploadImageToImgBB } from "@/lib/imgbb";
 import { toast } from "sonner";
 
 const ACCEPTED_IMAGE_TYPES = ["image/jpeg", "image/png", "image/webp", "image/gif"];
@@ -57,8 +56,10 @@ const Profile = () => {
 
   const handlePhotoChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
-    if (!file || !user || !storage) {
-      if (!storage) toast.error("Storage is not configured.");
+    if (!file || !user) return;
+    const apiKey = import.meta.env.VITE_IMGBB_API_KEY;
+    if (!apiKey || typeof apiKey !== "string") {
+      toast.error("ImgBB is not configured. Add VITE_IMGBB_API_KEY to your .env (get a free key at https://api.imgbb.com/).");
       return;
     }
     if (!ACCEPTED_IMAGE_TYPES.includes(file.type)) {
@@ -72,15 +73,13 @@ const Profile = () => {
     e.target.value = "";
     setPhotoUploading(true);
     try {
-      const path = `users/${user.uid}/avatar_${Date.now()}.${file.name.split(".").pop() || "jpg"}`;
-      const storageRef = ref(storage, path);
-      await uploadBytes(storageRef, file);
-      const photoURL = await getDownloadURL(storageRef);
+      const photoURL = await uploadImageToImgBB(file, apiKey);
       await updateProfile({ photoURL });
       toast.success("Profile photo updated.");
-    } catch (err) {
-      console.error(err);
-      toast.error("Could not update photo. Try again.");
+    } catch (err: unknown) {
+      console.error("Profile photo upload failed:", err);
+      const message = err instanceof Error ? err.message : String(err);
+      toast.error(message?.slice(0, 80) || "Could not update photo. Try again.");
     } finally {
       setPhotoUploading(false);
     }
