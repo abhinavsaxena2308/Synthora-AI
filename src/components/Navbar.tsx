@@ -52,11 +52,27 @@ const Navbar = () => {
           {user ? (
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <Button variant="ghost" size="sm" className="gap-1.5">
-                  <span className="max-w-[120px] truncate text-foreground">
+                <Button variant="ghost" size="sm" className="gap-2 rounded-full p-1 pr-2">
+                  {user.photoURL ? (
+                    <img
+                      src={user.photoURL}
+                      alt=""
+                      className="h-8 w-8 rounded-full object-cover border border-border/50"
+                    />
+                  ) : (
+                    <span className="h-8 w-8 rounded-full bg-primary/20 flex items-center justify-center text-xs font-semibold text-primary">
+                      {(user.displayName || user.email || "?")
+                        .split(" ")
+                        .map((s) => s[0])
+                        .join("")
+                        .toUpperCase()
+                        .slice(0, 2)}
+                    </span>
+                  )}
+                  <span className="max-w-[120px] truncate text-foreground text-sm">
                     {user.displayName || user.email || "Account"}
                   </span>
-                  <ChevronDown className="h-4 w-4 text-muted-foreground" />
+                  <ChevronDown className="h-4 w-4 text-muted-foreground shrink-0" />
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end" className="w-48">
@@ -112,18 +128,42 @@ const Navbar = () => {
               {link.label}
             </Link>
           ))}
-          <div className="flex gap-3 pt-2">
+          <div className="flex flex-col sm:flex-row items-center gap-3 pt-2">
             {user ? (
               <>
-                <Link to="/dashboard" onClick={() => setMobileOpen(false)}>
-                  <Button variant="ghost" size="sm">Dashboard</Button>
-                </Link>
-                <Link to="/settings" onClick={() => setMobileOpen(false)}>
-                  <Button variant="outline" size="sm">Settings</Button>
-                </Link>
-                <Button variant="ghost" size="sm" onClick={() => { signOut(); setMobileOpen(false); }}>
-                  Log out
-                </Button>
+                <div className="flex items-center gap-2 w-full sm:w-auto">
+                  {user.photoURL ? (
+                    <img
+                      src={user.photoURL}
+                      alt=""
+                      className="h-9 w-9 rounded-full object-cover border border-border/50 shrink-0"
+                    />
+                  ) : (
+                    <span className="h-9 w-9 rounded-full bg-primary/20 flex items-center justify-center text-xs font-semibold text-primary shrink-0">
+                      {(user.displayName || user.email || "?")
+                        .split(" ")
+                        .map((s) => s[0])
+                        .join("")
+                        .toUpperCase()
+                        .slice(0, 2)}
+                    </span>
+                  )}
+                  <span className="truncate text-sm text-foreground">
+                    {user.displayName || user.email || "Account"}
+                  </span>
+                </div>
+                <div className="flex gap-2 w-full sm:w-auto">
+                  <Link to="/dashboard" onClick={() => setMobileOpen(false)} className="flex-1 sm:flex-initial">
+                    <Button variant="ghost" size="sm" className="w-full sm:w-auto">Dashboard</Button>
+                  </Link>
+                  <Link to="/settings" onClick={() => setMobileOpen(false)} className="flex-1 sm:flex-initial">
+                    <Button variant="outline" size="sm" className="w-full sm:w-auto">Settings</Button>
+                  </Link>
+                  <Button variant="ghost" size="sm" className="flex-1 sm:flex-initial text-muted-foreground hover:text-destructive" onClick={() => { signOut(); setMobileOpen(false); }}>
+                    <LogOut className="h-4 w-4 mr-1.5 inline" />
+                    Log out
+                  </Button>
+                </div>
               </>
             ) : (
               <>
