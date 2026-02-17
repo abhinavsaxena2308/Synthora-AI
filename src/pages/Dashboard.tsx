@@ -43,7 +43,6 @@ const Dashboard = () => {
   return (
     <DashboardLayout title="Dashboard">
       <div className="p-6 lg:p-8 max-w-6xl mx-auto space-y-10">
-        {/* Hero strip - Leonardo-style welcome */}
         <section className="relative rounded-2xl overflow-hidden border border-border/50 bg-gradient-to-br from-primary/10 via-background to-accent/5 p-8 md:p-10 hero-gradient">
           <div className="relative z-10">
             <div className="flex items-center gap-2 text-primary mb-2">
@@ -58,8 +57,6 @@ const Dashboard = () => {
             </p>
           </div>
         </section>
-
-        {/* Quick tools - visual cards like Leonardo model picker */}
         <section>
           <h3 className="text-sm font-semibold text-foreground uppercase tracking-wider mb-4">
             Quick create
@@ -97,7 +94,6 @@ const Dashboard = () => {
           </div>
         </section>
 
-        {/* Recent generations - feed-style grid like Leonardo */}
         <section>
           <div className="flex items-center justify-between mb-4">
             <h3 className="text-sm font-semibold text-foreground uppercase tracking-wider">
@@ -111,7 +107,6 @@ const Dashboard = () => {
           </div>
           <Card className="border-border/50 bg-card/40 overflow-hidden">
             <div className="p-6 md:p-8">
-              {/* Empty state - visually rich CTA */}
               <div className="flex flex-col items-center justify-center py-16 md:py-20 text-center">
                 <div className="h-20 w-20 rounded-2xl bg-muted/50 flex items-center justify-center mb-5 border border-dashed border-border/60">
                   <Image className="h-9 w-9 text-muted-foreground/60" />
