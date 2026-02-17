@@ -9,6 +9,7 @@ import {
   type User,
   onAuthStateChanged,
   signOut as firebaseSignOut,
+  updateProfile as firebaseUpdateProfile,
 } from "firebase/auth";
 import { auth } from "@/lib/firebase";
 
@@ -17,6 +18,8 @@ type AuthContextValue = {
   loading: boolean;
   signOut: () => Promise<void>;
   isReady: boolean;
+  refreshUser: () => void;
+  updateProfile: (updates: { displayName?: string | null; photoURL?: string | null }) => Promise<void>;
 };
 
 const AuthContext = createContext<AuthContextValue | null>(null);
@@ -52,8 +55,19 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     if (auth) await firebaseSignOut(auth);
   };
 
+  const refreshUser = () => {
+    setUser(auth?.currentUser ?? null);
+  };
+
+  const updateProfile = async (updates: { displayName?: string | null; photoURL?: string | null }) => {
+    const currentUser = auth?.currentUser;
+    if (!currentUser) return;
+    await firebaseUpdateProfile(currentUser, updates);
+    setUser(auth.currentUser);
+  };
+
   return (
-    <AuthContext.Provider value={{ user, loading, signOut, isReady }}>
+    <AuthContext.Provider value={{ user, loading, signOut, isReady, refreshUser, updateProfile }}>
       {children}
     </AuthContext.Provider>
   );
