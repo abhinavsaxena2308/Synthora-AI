@@ -10,6 +10,8 @@ import {
   onAuthStateChanged,
   signOut as firebaseSignOut,
   updateProfile as firebaseUpdateProfile,
+  signInWithPopup,
+  GoogleAuthProvider,
 } from "firebase/auth";
 import { auth } from "@/lib/firebase";
 
@@ -17,6 +19,7 @@ type AuthContextValue = {
   user: User | null;
   loading: boolean;
   signOut: () => Promise<void>;
+  signInWithGoogle: () => Promise<void>;
   isReady: boolean;
   refreshUser: () => void;
   updateProfile: (updates: { displayName?: string | null; photoURL?: string | null }) => Promise<void>;
@@ -55,6 +58,12 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     if (auth) await firebaseSignOut(auth);
   };
 
+  const signInWithGoogle = async () => {
+    if (!auth) throw new Error("Auth not configured");
+    const provider = new GoogleAuthProvider();
+    await signInWithPopup(auth, provider);
+  };
+
   const refreshUser = () => {
     setUser(auth?.currentUser ?? null);
   };
@@ -67,7 +76,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ user, loading, signOut, isReady, refreshUser, updateProfile }}>
+    <AuthContext.Provider value={{ user, loading, signOut, signInWithGoogle, isReady, refreshUser, updateProfile }}>
       {children}
     </AuthContext.Provider>
   );
