@@ -34,29 +34,20 @@ const App = () => (
         <Sonner />
         <BrowserRouter>
         <Routes>
-          {/* Public */}
           <Route path="/" element={<Index />} />
           <Route path="/features" element={<Features />} />
           <Route path="/how-it-works" element={<HowItWorks />} />
           <Route path="/tools" element={<Tools />} />
-
-          {/* Tool Pages */}
           <Route path="/tools/image" element={<ImageTool />} />
           <Route path="/tools/logo" element={<LogoTool />} />
           <Route path="/tools/video" element={<VideoTool />} />
           <Route path="/tools/prompt" element={<PromptTool />} />
-
-          {/* Auth */}
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
-
-          {/* Dashboard - protected */}
           <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
           <Route path="/dashboard/history" element={<ProtectedRoute><History /></ProtectedRoute>} />
           <Route path="/settings" element={<ProtectedRoute><SettingsPage /></ProtectedRoute>} />
           <Route path="/settings/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
-
-          {/* Legal */}
           <Route path="/privacy" element={<Privacy />} />
           <Route path="/terms" element={<Terms />} />
           <Route path="/cookies" element={<Cookies />} />
