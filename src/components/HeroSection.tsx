@@ -16,8 +16,6 @@ const HeroSection = () => {
         <div className="absolute inset-0 bg-gradient-to-b from-background/20 via-background/40 to-background/70 dark:from-background/60 dark:via-background/80 dark:to-background" />
       </div>
 
-      <div className="absolute inset-0 grid-pattern opacity-20" />
-
       <div className="container relative z-10 text-center px-4">
         <motion.div
           initial={{ opacity: 0, y: 30 }}

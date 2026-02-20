@@ -13,7 +13,7 @@ const PageLayout = ({ children, withGrid = true, showFooter = true }: PageLayout
     <div className="min-h-screen flex flex-col">
       <Navbar />
       <main className="flex-1 pt-20 relative">
-        {withGrid && <div className="absolute inset-0 grid-pattern opacity-15 pointer-events-none" />}
+        {withGrid && <div className="absolute inset-0 pointer-events-none" />}
         <div className="relative z-10">{children}</div>
       </main>
       {showFooter && <Footer />}
