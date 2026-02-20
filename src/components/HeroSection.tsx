@@ -8,8 +8,12 @@ const HeroSection = () => {
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
       <div className="absolute inset-0">
-        <img src={heroBg} alt="" className="w-full h-full object-cover opacity-80" />
-        <div className="absolute inset-0 bg-gradient-to-b from-background/60 via-background/80 to-background" />
+        <img
+          src={heroBg}
+          alt=""
+          className="w-full h-full object-cover opacity-100 dark:opacity-80 transition-opacity duration-300"
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-background/20 via-background/40 to-background/70 dark:from-background/60 dark:via-background/80 dark:to-background" />
       </div>
 
       <div className="absolute inset-0 grid-pattern opacity-20" />
