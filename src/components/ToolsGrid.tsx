@@ -8,6 +8,9 @@ const tools = [
     icon: Image,
     href: "/tools/image",
     gradient: "primary" as const,
+    imageSrc:
+      "https://images.unsplash.com/photo-1513364776144-60967b0f800f?auto=format&fit=crop&w=1200&q=80",
+    imageAlt: "Vibrant abstract shapes representing AI-generated artwork",
   },
   {
     title: "Logo Generator",
@@ -15,6 +18,9 @@ const tools = [
     icon: Palette,
     href: "/tools/logo",
     gradient: "accent" as const,
+    imageSrc:
+      "https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=1200&q=80",
+    imageAlt: "Designer workspace with multiple modern logo sketches",
   },
   {
     title: "Video Creator",
@@ -22,6 +28,9 @@ const tools = [
     icon: Video,
     href: "/tools/video",
     gradient: "primary" as const,
+    imageSrc:
+      "https://images.unsplash.com/photo-1516031190212-da133013de50?auto=format&fit=crop&w=1200&q=80",
+    imageAlt: "Video editing software timeline on a monitor",
   },
   {
     title: "Prompt Generator",
@@ -29,6 +38,9 @@ const tools = [
     icon: Wand2,
     href: "/tools/prompt",
     gradient: "accent" as const,
+    imageSrc:
+      "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=1200&q=80",
+    imageAlt: "Person typing creative prompts on a laptop in a cozy workspace",
   },
 ];
 
