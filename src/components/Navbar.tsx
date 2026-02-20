@@ -46,10 +46,10 @@ const Navbar = () => {
 
   return (
     <nav
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+      className={`fixed top-0 left-0 right-0 z-50 border-b transition-all duration-300 ${
         scrolled
-          ? "glass border-b border-border/40 shadow-lg shadow-black/5"
-          : "bg-card/40 backdrop-blur-xl border-b border-border/30"
+          ? "bg-black/95 shadow-lg shadow-black/40 dark:glass dark:border-border/40"
+          : "bg-black/85 backdrop-blur-xl dark:bg-card/40 dark:border-border/30"
       }`}
     >
       <div className="container flex h-16 items-center justify-between">
@@ -154,7 +154,11 @@ const Navbar = () => {
           ) : (
             <>
               <Link to="/login">
-                <Button variant="ghost" size="sm" className="font-medium">
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  className="font-medium text-white hover:text-white hover:bg-white/5 dark:text-foreground dark:hover:bg-secondary/50"
+                >
                   Log In
                 </Button>
               </Link>
