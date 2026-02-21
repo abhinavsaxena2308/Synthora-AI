@@ -119,7 +119,7 @@ const App = () => (
               <Route path="*" element={<NotFound />} />
             </Routes>
           </BrowserRouter>
-          <ThemeToggleFloating />
+
         </AuthProvider>
       </ThemeProvider>
     </TooltipProvider>
