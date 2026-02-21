@@ -1,0 +1,72 @@
+# Binary files
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+
+# Test binary, build intermediate and output files
+*.test
+*.out
+*.prof
+
+# Dependency directories
+vendor/
+
+# Environment files
+.env
+.env.local
+.env.production
+.env.development
+
+# Log files
+*.log
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Temporary files
+tmp/
+temp/
+
+# Build artifacts
+bin/
+dist/
+build/
+
+# Coverage output
+coverage.*
+*.cover
+*.coverage
+
+# Documentation
+docs/
+*.md~ 
+
+# Configuration files that might contain sensitive data
+config/*.local
+secrets.json
+credentials.json
+
+# Database files
+*.db
+*.sqlite
+*.sqlite3
+
+# Certificate files
+*.key
+*.crt
+*.pem
