@@ -17,7 +17,13 @@ import (
 
 func main() {
 	// Load configuration
-	cfg := config.LoadConfig()
+	cfg, err := config.LoadConfig()
+	if err != nil {
+		log.Fatalf("Failed to load configuration: %v", err)
+	}
+
+	// Log non-sensitive configuration
+	cfg.LogConfig()
 
 	// Initialize Echo instance
 	e := echo.New()
@@ -30,8 +36,8 @@ func main() {
 
 	// Start server
 	go func() {
-		log.Printf("Starting %s server on port %s", cfg.App.Name, cfg.Server.Port)
-		if err := e.Start(":" + cfg.Server.Port); err != nil && err != http.ErrServerClosed {
+		log.Printf("Starting Synthora-AI server on port %s", cfg.Port)
+		if err := e.Start(":" + cfg.Port); err != nil && err != http.ErrServerClosed {
 			log.Fatalf("Failed to start server: %v", err)
 		}
 	}()
@@ -65,9 +71,9 @@ func setupMiddleware(e *echo.Echo, cfg *config.Config) {
 	// Recover middleware
 	e.Use(middleware.Recover())
 
-	// CORS middleware
+	// CORS middleware - using default configuration for now
 	e.Use(middleware.CORSWithConfig(middleware.CORSConfig{
-		AllowOrigins: cfg.CORS.AllowedOrigins,
+		AllowOrigins: []string{"http://localhost:5173", "http://localhost:3000"},
 		AllowMethods: []string{http.MethodGet, http.MethodPost, http.MethodPut, http.MethodDelete, http.MethodOptions},
 		AllowHeaders: []string{echo.HeaderOrigin, echo.HeaderContentType, echo.HeaderAccept, echo.HeaderAuthorization},
 	}))
