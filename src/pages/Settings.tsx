@@ -3,7 +3,10 @@ import DashboardLayout from "@/components/DashboardLayout";
 import { Switch } from "@/components/ui/switch";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Bell, History, Sparkles, AlertTriangle } from "lucide-react";
+import { Bell, History, Sparkles, AlertTriangle, Loader2 } from "lucide-react";
+import { useAuth } from "@/contexts/AuthContext";
+import { useNavigate } from "react-router-dom";
+import { useToast } from "@/hooks/use-toast";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -20,6 +23,35 @@ const SettingsPage = () => {
   const [emailNotifications, setEmailNotifications] = useState(false);
   const [saveHistory, setSaveHistory] = useState(true);
   const [highQualityMode, setHighQualityMode] = useState(false);
+  const [isDeleting, setIsDeleting] = useState(false);
+  const { deleteAccount } = useAuth();
+  const navigate = useNavigate();
+  const { toast } = useToast();
+
+  const handleDeleteAccount = async () => {
+    setIsDeleting(true);
+    try {
+      await deleteAccount();
+      toast({
+        title: "Account deleted successfully",
+        description: "Your account and all associated data have been permanently removed. Redirecting to homepage...",
+        variant: "default",
+      });
+      // Small delay to show success message before redirect
+      setTimeout(() => {
+        navigate("/");
+      }, 2000);
+    } catch (error: any) {
+      console.error("Error deleting account:", error);
+      toast({
+        title: "Deletion failed",
+        description: error.message || "Failed to delete account. Please try again or contact support.",
+        variant: "destructive",
+      });
+      // Reset deleting state on error
+      setIsDeleting(false);
+    }
+  };
 
   return (
     <DashboardLayout title="Settings">
@@ -78,23 +110,58 @@ const SettingsPage = () => {
             <CardContent>
               <AlertDialog>
                 <AlertDialogTrigger asChild>
-                  <Button variant="outline" size="sm" className="text-destructive border-destructive/40 hover:bg-destructive/10 hover:border-destructive/60">
-                    Delete account
+                  <Button 
+                    variant="outline" 
+                    size="sm" 
+                    className="text-destructive border-destructive/40 hover:bg-destructive/10 hover:border-destructive/60"
+                    disabled={isDeleting}
+                  >
+                    {isDeleting ? (
+                      <>
+                        <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+                        Deleting...
+                      </>
+                    ) : (
+                      "Delete account"
+                    )}
                   </Button>
                 </AlertDialogTrigger>
                 <AlertDialogContent>
                   <AlertDialogHeader>
-                    <AlertDialogTitle>Delete your account?</AlertDialogTitle>
-                    <AlertDialogDescription>
-                      This will permanently remove your account, profile, and all generation
-                      history. You will need to sign up again to use SynthoraAI. This action
-                      cannot be undone.
+                    <AlertDialogTitle className="flex items-center gap-2 text-destructive">
+                      <AlertTriangle className="h-5 w-5" />
+                      Delete your account permanently?
+                    </AlertDialogTitle>
+                    <AlertDialogDescription className="space-y-3">
+                      <p>
+                        This will permanently remove your account and all associated data including:
+                      </p>
+                      <ul className="list-disc list-inside space-y-1 text-sm">
+                        <li>Your profile information</li>
+                        <li>Generation history and saved creations</li>
+                        <li>Account settings and preferences</li>
+                        <li>All stored images, videos, and files</li>
+                      </ul>
+                      <p className="font-medium text-foreground">
+                        This action cannot be undone. You will need to create a new account to use SynthoraAI again.
+                      </p>
                     </AlertDialogDescription>
                   </AlertDialogHeader>
                   <AlertDialogFooter>
-                    <AlertDialogCancel>Cancel</AlertDialogCancel>
-                    <AlertDialogAction className="bg-destructive text-destructive-foreground hover:bg-destructive/90">
-                      Delete account
+                    <AlertDialogCancel disabled={isDeleting}>Cancel</AlertDialogCancel>
+                    <AlertDialogAction 
+                      onClick={handleDeleteAccount}
+                      className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
+                      disabled={isDeleting}
+                    >
+                      {isDeleting ? (
+                        <>
+                          <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+                          Deleting Account...
+                        </>
+                      ) : (
+                        "Delete Account Permanently"
+                      )}
                     </AlertDialogAction>
                   </AlertDialogFooter>
                 </AlertDialogContent>
