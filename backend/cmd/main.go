@@ -25,6 +25,14 @@ func main() {
 	// Log non-sensitive configuration
 	cfg.LogConfig()
 
+	// Initialize Firebase
+	ctx := context.Background()
+	firebaseClient, err := config.InitializeFirebase(ctx, cfg)
+	if err != nil {
+		log.Fatalf("Failed to initialize Firebase: %v", err)
+	}
+	log.Println("Firebase initialized successfully")
+
 	// Initialize Echo instance
 	e := echo.New()
 
@@ -52,6 +60,11 @@ func main() {
 	// Create context with timeout for graceful shutdown
 	ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
 	defer cancel()
+
+	// Close Firebase connections
+	if err := config.CloseFirebase(ctx); err != nil {
+		log.Printf("Error closing Firebase connections: %v", err)
+	}
 
 	// Shutdown server gracefully
 	if err := e.Shutdown(ctx); err != nil {

@@ -9,4 +9,7 @@ import (
 func SetupRoutes(e *echo.Echo) {
 	// Health check route
 	e.GET("/api/health", handlers.HealthCheck)
+	
+	// Test Firestore route
+	e.POST("/api/test-firestore", handlers.TestFirestore)
 }
